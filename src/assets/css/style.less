@@ -1,0 +1,67 @@
+
+
+//单行溢出 .s-overflow();
+.s-overflow {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+//多行溢出 .m-overflow(2);
+.m-overflow(@line) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: @line;
+	-webkit-box-orient: vertical;
+}
+//阴影 .box-shadow(0,0,20,#CCC);
+.box-shadow(@x;@y;@blur;@color) {
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+//文字阴影  .text-shadow(0,0,20,#CCC);
+.text-shadow(@x;@y;@blur;@color) {
+	text-shadow: @arguments;
+}
+//高度计算 .height(100%,30px);
+.height(@ratio,@px) {
+	height: calc(~'@{ratio} -  @{px}');
+}
+.width(@ratio,@px) {
+	width: calc(~'@{ratio} -  @{px}');
+}
+// 两端对齐 .justify();
+.justify {
+	text-align: justify;
+	text-justify: distribute-all-lines;
+	text-align-last: justify;
+	&:after {
+		display: inline-block;
+		content: '';
+		overflow: hidden;
+		width: 100%;
+		height: 0;
+	}
+}
+//flex .flex(column);
+.flex(@direction:row;) {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: @direction;
+}
+//禁止用户选中 .user-select();
+.user-select {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+.zyj-dialog-title{
+	cursor: move;
+}
+.zyj-dialog-close{
+	cursor: pointer;
+}

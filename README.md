@@ -1,1 +1,3 @@
-# vue-test-less
+
+npm run serve
+npm run build
