@@ -2,13 +2,18 @@
   <div class="header">
     <div class="nav">
 
-      <router-link  class="nav-item" :key="index.path" v-for="(item, index) in navList" :to="item.path" >
+      <router-link  class="nav-item" :key="item.path" v-for="(item, index) in navList" :to="item.path"  custom v-slot="{ navigate,isActive }">
+        <div :active="isActive"  @click="navigate" @keypress.enter="navigate" role="link">
+          <p v-text="item.name"></p>
+        </div>
+      </router-link>
+
+<!-- <router-link  class="nav-item" :key="index.path" v-for="(item, index) in navList" :to="item.path" >
         <div>
           <p v-text="item.name"></p>
           <p v-text="item.englishName"></p>
         </div>
-      </router-link>
-
+      </router-link> -->
     </div>
 
   </div>
@@ -83,7 +88,7 @@ export default {
       height: 100%;
       padding: 24px 30px 24px;
       text-align: center;
-      &.router-link-active {
+      &[active='true'] {
         background: url(img/顶部标题选定@3x.png) no-repeat bottom center;
         background-size: 128px 33px;
       }
