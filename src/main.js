@@ -4,16 +4,15 @@ import router from './router'
 import store from './store'
 Vue.config.productionTip = false
 
-var $rootUrl='';
 if (process.env.NODE_ENV == 'development') {
   //是否启用vue开发者工具
   Vue.config.devtools = true
-  $rootUrl = '';
+  window.$rootUrl = '';
 } else {
   Vue.config.devtools = false
-  $rootUrl = window.origin
+  window.$rootUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '')
 }
-Vue.prototype.$rootUrl =$rootUrl;
+Vue.prototype.$rootUrl =window.$rootUrl;
 
 //重置样式
 import '@assets/css/reset.css'

@@ -7,7 +7,7 @@ import {
 
 import TileWMS from 'ol/source/TileWMS';
 var mapconfig = {
-  maptype:2,// 0 黑地图，1表示OSM, 2表示使用Arcgis在线午夜蓝地图服务  3.天地图
+  maptype:1	,// 0 黑地图，1表示OSM, 2表示使用Arcgis在线午夜蓝地图服务  3.天地图
   streetmap(){
     let maplayer = null
     switch (this.maptype) {
@@ -24,19 +24,19 @@ var mapconfig = {
         })
         break
       case 2:
-        // maplayer = new TileLayer({
-        //   source: new TileArcGISRest({
-        //     url: 'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer'
-        //   })
-        // })
         maplayer = new TileLayer({
           source: new TileArcGISRest({
-            url: 'http://10.128.185.173:8090/iserver/services/map-agscache-YGBDZDT/rest/maps/YGBDZDT?Key=6FNWdIks3ImNo2meOZxF4Ana'
-          }),
-          extent: [-65911.18 , 139869.14,
-            168903.84 , 296412.48
-          ]
+            url: 'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer'
+          })
         })
+        // maplayer = new TileLayer({
+        //   source: new TileArcGISRest({
+        //     url: 'http://10.128.185.173:8090/iserver/services/map-agscache-YGBDZDT/rest/maps/YGBDZDT?Key=6FNWdIks3ImNo2meOZxF4Ana'
+        //   }),
+        //   extent: [-65911.18 , 139869.14,
+        //     168903.84 , 296412.48
+        //   ]
+        // })
         break
       case 3:
         maplayer = new TileLayer({

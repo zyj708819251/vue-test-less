@@ -7,7 +7,7 @@ import http from '@api/js/http'
  */
 export default {
   sendHttp(params){
-     return http.get($rootUrl+ '/wldata/sentHttp', params)
+     return http.get('/search/repositories?q=v&sort=stars', params)
   },
   getListAPI (params) {
     return http.get('./data/getList.json', params)

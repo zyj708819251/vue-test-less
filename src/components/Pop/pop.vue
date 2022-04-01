@@ -4,7 +4,7 @@
       <div class="zyj-dialog-title">11</div>
       <div class="zyj-dialog-close" @click="closePop">X</div> 
    </div>
-   <div class="pop-body">{{ dialogData.a }}</div>
+   <div class="pop-body">{{ dialogData.name }}</div>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
   components: {},
   mounted() {
-    // console.log(JSON.parse(this.dialogData))
+    console.log(this.dialogData)
   },
   methods: {
     closePop() {
@@ -35,5 +35,6 @@ export default {
   width: 200px;
   height: 200px;
   background: rgba(0, 0, 0, 0.6);
+  color: #FFF;
 }
 </style>

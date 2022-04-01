@@ -1,6 +1,5 @@
 import request from './request'
 
-var ip=process.env.NODE_ENV == 'dev'?'':window.origin
 
 const http = {
   get(url, params) {
