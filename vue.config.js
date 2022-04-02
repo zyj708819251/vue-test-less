@@ -69,10 +69,10 @@ module.exports = {
 	css: {
 		// 是否使用css分离插件 ExtractTextPlugin
 		extract: false,
-		// 开启 CSS source maps?
+		// // 开启 CSS source maps?
 		sourceMap: false,
-		// 启用 CSS modules for all css / pre-processor files.
-		requireModuleExtension: false,
+		// // 启用 CSS modules for all css / pre-processor files.
+		requireModuleExtension: true,
 		loaderOptions: {
 			postcss: {
 				plugins: [

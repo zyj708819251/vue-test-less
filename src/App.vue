@@ -21,7 +21,8 @@ export default {
 	created() {},
 	mounted() {
 		map.show();
-		    geoJson.show(gdZj);
+		    // geoJson.show(gdZj);
+				
 			geoJson.hideOtherRegion(gd);
 		// setTimeout(()=>{
 		// 	line.hide();
