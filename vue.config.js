@@ -19,8 +19,7 @@ module.exports = {
 	publicPath: './',
 	outputDir: 'dist',
 	configureWebpack: {
-		devtool: 'source-map',
-		// devtool: isDevelopment ? 'source-map' : '',
+		devtool: isDevelopment ? 'cheap-module-source-map' : 'none',
 		resolve: { // 配置解析别名
 			alias: {
 				'@': path.resolve(__dirname, './src'),

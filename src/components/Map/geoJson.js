@@ -15,7 +15,9 @@ import {
 } from "ol/geom/Polygon";
 import Feature from 'ol/Feature';
 import LinearRing from "ol/geom/LinearRing";
-import {getVectorContext} from 'ol/render';
+import {
+	getVectorContext
+} from 'ol/render';
 import {
 	Tile as TileLayer,
 } from 'ol/layer';
@@ -206,9 +208,9 @@ var geoJson = {
 			}
 		})
 		var bounds = [minX, minY, maxX, maxY]
-		window.map.getView().fit(bounds,{
+		window.map.getView().fit(bounds, {
 			'duration': obj.duration,
-			'padding': [$utils.transformEchartsSize(100), $utils.transformEchartsSize(100),
+			'padding': [$utils.transformEchartsSize(300), $utils.transformEchartsSize(100),
 				$utils.transformEchartsSize(100), $utils.transformEchartsSize(100)
 			]
 			// 'padding': [300,0,0,0]
@@ -280,41 +282,47 @@ var geoJson = {
 		this.hightSingleFeature = null;
 	},
 	//行政区划分其他区域遮盖
-	hideOtherRegion(geojson) {
+	/**
+	 * @param {Object} geojson
+	 * @param {Object} layer
+	 * // window.map.addLayer(mapconfig.maplayer);
+	 * // geoJson.hideOtherRegion(gd, mapconfig.maplayer);
+	 */
+	hideOtherRegion(geojson, layer) {
 		let that = this;
 		let formatGeoJSON = new GeoJSON({
-		    featureProjection: "EPSG:4326"
+			featureProjection: "EPSG:4326"
 		});
 		let regionsfeatures = formatGeoJSON.readFeatures(geojson);
 		let xyGeometry = regionsfeatures[0].getGeometry();
 		let fillStyle = new Fill({
-		    color:' rgba(0,0,0,0)'
+			color: ' rgba(0,0,0,0)'
 		})
 		let styleVC = new Style({
-		    fill: fillStyle
+			fill: fillStyle
 		})
-		mapconfig.maplayer.on('prerender', function(event){
-		    let ctx = event.context
-		    let pixelRatio = event.frameState.pixelRatio
-		   let vecCtx = getVectorContext(event);
-		    ctx.save()
-		    vecCtx.setStyle(styleVC)
-		    vecCtx.drawGeometry(xyGeometry)
-		    ctx.lineWidth = 5 * pixelRatio
-		    ctx.strokeStyle = 'rgba(0,229,255,1)'
-		    ctx.stroke()
-		    ctx.clip()
+		layer.on('prerender', function(event) {
+			let ctx = event.context
+			let pixelRatio = event.frameState.pixelRatio
+		 let vecCtx = getVectorContext(event);
+			ctx.save()
+			vecCtx.setStyle(styleVC)
+			vecCtx.drawGeometry(xyGeometry)
+			ctx.lineWidth = 5 * pixelRatio
+			ctx.strokeStyle = 'rgba(0,229,255,1)'
+			ctx.stroke()
+			ctx.clip()
 		})
-		mapconfig.maplayer.on('postrender', function(event){
-		    let ctx = event.context
-		    ctx.restore()
+		layer.on('postrender', function(event) {
+			let ctx = event.context
+			ctx.restore()
 		})
-		var obj = {
-			features:regionsfeatures,
-			duration: 1500
-		}
-		this.setFitView(obj)
-
+		// 自动视角
+		// var obj = {
+		// 	features:regionsfeatures,
+		// 	duration: 1500
+		// }
+		// this.setFitView(obj)
 	},
 }
 export default geoJson

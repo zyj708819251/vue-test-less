@@ -3,26 +3,29 @@ import {
 	View
 } from 'ol';
 import mapconfig from '@com/Map/mapconfig';
+import {
+  defaults as defaultInteractions,
+} from 'ol/interaction';
 var map = {
 	map: null,
 	mapView: null,
-	mapCenter: [116.40106403794836, 39.7284497465522],
-	mapZoom: 16,
+	mapCenter: [113.423936,23.644399352941175],
+	mapZoom: 8,
 	show() {
 		let that = this;
 		var mapContainer = document.getElementById('mapView');
 		var view = new View({
 			projection: 'EPSG:4326',
-			// center: this.mapCenter,
-			// zoom: this.mapZoom,
-			// maxZoom: 15,
+			center: this.mapCenter,
+			zoom: this.mapZoom,
+			maxZoom: 18,
 			// minZoom: 8,
 		});
 		var map = new Map({
-			projection: 'EPSG:4326', //坐标系
-			layers: [mapconfig.maplayer],
+			layers: [],
 			target: mapContainer,
-			view: view
+			view: view,
+			interactions: defaultInteractions({doubleClickZoom: false}),
 		});
 		this.map = map;
 		this.mapView = view;
@@ -45,6 +48,10 @@ var map = {
 				document.body.removeChild(textareaEl);
 			}
 		}
+		window.map.on('click', function(evt) {
+			var lnglat = that.map.getCoordinateFromPixel(evt.pixel);
+			console.log(lnglat);
+		})
 	}
 }
 export default map

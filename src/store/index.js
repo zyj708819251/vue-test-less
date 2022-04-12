@@ -3,17 +3,27 @@ import Vuex from 'vuex'
 import qyh from './modules/qyh'
 import state from './modules/qyh/state'
 Vue.use(Vuex)
+/**
+import { mapState, mapMutations } from 'vuex';
+computed: {
+	...mapState(['allMarker', 'allMarkerLabel', ])
+},
+methods: {
+	...mapMutations(['updateMarker', 'updateMarkerLabel']),
+}
+	
+ */
 export default new Vuex.Store({
 	state:{
-		remark: 0,
-		userInfo:null
+		allMarker: null,
+		allMarkerLabel:null
 	},
 	mutations:{
-		updateRemark(state,data){
-			state.remark=data;
+		updateMarker(state,data){
+			state.allMarker=data;
 		},
-		newtoken(state,userInfo) {
-			state.userInfo = userInfo;
+		updateMarkerLabel(state,data){
+			state.allMarkerLabel=data;
 		}
 	},
 	modules: {

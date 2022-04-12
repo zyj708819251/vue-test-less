@@ -22,9 +22,23 @@
   -khtml-user-select: none;
   user-select: none;
 }
+.zyj-dialog-header {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+}
 .zyj-dialog-title {
+  flex: 1;
   cursor: move;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .zyj-dialog-close {
   cursor: pointer;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

@@ -9,10 +9,10 @@ import api from '@api/api';
 import hello from '@com/Pop/pop';
 import map from '@com/Map/map.js';
 import line from '@com/Map/line.js';
-import geoJson from '@com/Map/geoJson.js';
 import gdZj from '@com/Map/file/gd-zj.json'
 import gd from '@com/Map/file/gd.json'
-
+import mapconfig from '@com/Map/mapconfig.js';
+import geoJson from '@com/Map/geoJson.js';
 export default {
 	data() {
 		return {};
@@ -21,9 +21,13 @@ export default {
 	created() {},
 	mounted() {
 		map.show();
+		window.map.addLayer(mapconfig.tdtYxLayer);
+		window.map.addLayer(mapconfig.tdtBzLayer);
+		geoJson.hideOtherRegion(gd,mapconfig.tdtYxLayer)
+		geoJson.hideOtherRegion(gd,mapconfig.tdtBzLayer)
 		    // geoJson.show(gdZj);
 				
-			geoJson.hideOtherRegion(gd);
+			// geoJson.hideOtherRegion(gd);
 		// setTimeout(()=>{
 		// 	line.hide();
 		// },15000)
@@ -65,12 +69,7 @@ export default {
 	#mapView {
 		width: 100%;
 		height: 100%;
-		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 1;
+		background: rgba(0,0,0,.5);
 	}
 	/deep/ .ol-attribution,/deep/ .ol-rotate,/deep/ .ol-zoom{
 		display: none;

@@ -9,7 +9,7 @@ VueRouter.prototype.push = function push(location) {
 }
 const routes = [{
 		path: '/',
-		redirect: '/Login'
+		redirect: '/Layout'
 	}, {
 		path: '/Login',
 		name: "登录",
@@ -39,7 +39,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
-	mode: 'history',
+	// mode: 'history',
 	routes
 })
 
