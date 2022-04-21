@@ -1,5 +1,5 @@
 export default {
-  showAddDw(state){
-	  return state.show+'哈哈'
+  changeMarker(state){
+	  return state.allMarker+'哈哈'
   }
 }

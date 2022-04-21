@@ -15,6 +15,7 @@
 </template>
 
 <script>
+	import { mapState, mapMutations } from 'vuex';
 	export default {
 		name: 'first',
 		data() {
@@ -23,8 +24,13 @@
 		},
     components:{
     },
+	computed: {
+		...mapState("qyh",{
+			allMarker:'allMarker'
+		})
+	},
     mounted() {
-      console.log(1111);
+      console.log(this.allMarker);
     },
 		methods:{
 

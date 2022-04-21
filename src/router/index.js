@@ -23,16 +23,20 @@ const routes = [{
 	{
 		path: "/Layout",
 		component: () => import('@com/Layout/index.vue'),
+		name: "Home",
 		redirect: '/Home',
+		meta: { title: "首页"},
 		children: [{
 				path: "/Home",
-				name: "首页",
+				name: "HomePage",
 				component: () => import('@views/Home/index.vue'),
+				meta: { title: "个人主页"}
 			},
 			{
 				path: "/About",
-				name: "关于我们",
+				name: "AboutPage",
 				component: () => import('@views/About/index.vue'),
+				meta: { title: "关于我们"}
 			}
 		]
 	}
@@ -44,6 +48,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+	console.log(to);
 	to.query.time = new Date().getTime();
 	next();
 })

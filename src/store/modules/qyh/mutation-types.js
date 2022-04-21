@@ -1,1 +1,2 @@
-export const CHANGE_SHOW = "changeShow";
+export const addMarker = "addMarker";
+export const delMarker = "delMarker1";

@@ -15,16 +15,11 @@ import {
 } from "ol/geom/Polygon";
 import Feature from 'ol/Feature';
 import LinearRing from "ol/geom/LinearRing";
-import {getVectorContext} from 'ol/render';
-import {
-	Tile as TileLayer,
-} from 'ol/layer';
-import XYZ from 'ol/source/XYZ';
 //引入工具类
 import utils from '@utils/utils.js'
 var $utils = utils
 
-import mapconfig from '@com/Map/mapconfig';
+
 var geoJson = {
 	geoJson: null,
 	regionsfeatures: null,
@@ -208,7 +203,7 @@ var geoJson = {
 		var bounds = [minX, minY, maxX, maxY]
 		window.map.getView().fit(bounds,{
 			'duration': obj.duration,
-			'padding': [$utils.transformEchartsSize(300), $utils.transformEchartsSize(100),
+			'padding': [$utils.transformEchartsSize(100), $utils.transformEchartsSize(100),
 				$utils.transformEchartsSize(100), $utils.transformEchartsSize(100)
 			]
 			// 'padding': [300,0,0,0]
@@ -280,35 +275,61 @@ var geoJson = {
 		this.hightSingleFeature = null;
 	},
 	//行政区划分其他区域遮盖
-	hideOtherRegion(geojson,layer) {
+	hideOtherRegion(geojson) {
 		let that = this;
-		let formatGeoJSON = new GeoJSON({
-		    featureProjection: "EPSG:4326"
+		var converGeom = _erase(geojson.features[0].geometry);
+		var convertFt = new Feature({
+			geometry: converGeom,
 		});
-		let regionsfeatures = formatGeoJSON.readFeatures(geojson);
-		let xyGeometry = regionsfeatures[0].getGeometry();
-		let fillStyle = new Fill({
-		    color:' rgba(0,0,0,0)'
+		var innerStyle = new Style({
+			fill: new Fill({
+				color: "rgba(0,0,0, .6)",
+			}),
+			stroke: new Stroke({
+				color: "rgba(0,229,255,1)",
+				width: 0,
+			}),
+		});
+		let innerLayer = new VectorLayer({
+			source: new VectorSource(),
+			zIndex: 4,
+			style: innerStyle,
+		});
+		// var outterStyle = new Style({
+		// 	fill: new Fill({
+		// 		color: "rgba(0,0,0,0)",
+		// 	}),
+		// 	stroke: new Stroke({
+		// 		color: "rgba(0,229,255,.2)",
+		// 		width: 20,
+		// 	}),
+		// });
+		// let outterLayer = new VectorLayer({
+		// 	source: new VectorSource(),
+		// 	zIndex: 4,
+		// 	style: outterStyle,
+		// });
+		
+		innerLayer.getSource().addFeature(convertFt);
+		// outterLayer.getSource().addFeature(convertFt);
+		window.map.addLayer(innerLayer);
+		// window.map.addLayer(outterLayer);
+		
+		function _erase(geom) {
+			var extent = [-180, -90, 180, 90];
+			var polygonRing = fromExtent(extent);
+			var coords = geom.coordinates;
+			coords.forEach((coord) => {
+				var linearRing = new LinearRing(coord[0]);
+				polygonRing.appendLinearRing(linearRing);
+			});
+			return polygonRing;
+		}
+		var regionsfeatures = new GeoJSON().readFeatures(geojson, {
+			dataProjection: 'EPSG:4326',
+			featureProjection: 'EPSG:4326'
 		})
-		let styleVC = new Style({
-		    fill: fillStyle
-		})
-		layer.on('prerender', function(event){
-		    let ctx = event.context
-		    let pixelRatio = event.frameState.pixelRatio
-		   let vecCtx = getVectorContext(event);
-		    ctx.save()
-		    vecCtx.setStyle(styleVC)
-		    vecCtx.drawGeometry(xyGeometry)
-		    ctx.lineWidth = 5 * pixelRatio
-		    ctx.strokeStyle = 'rgba(0,229,255,1)'
-		    ctx.stroke()
-		    ctx.clip()
-		})
-		layer.on('postrender', function(event){
-		    let ctx = event.context
-		    ctx.restore()
-		})
+		
 		var obj = {
 			features:regionsfeatures,
 			duration: 1500

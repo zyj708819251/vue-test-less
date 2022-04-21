@@ -1,32 +1,43 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import qyh from './modules/qyh'
-import state from './modules/qyh/state'
+
+import VuexPersistence from 'vuex-persist'
+const vuexLocal = new VuexPersistence({
+	storage: window.localStorage
+})
 Vue.use(Vuex)
 /**
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations,mapGetters,mapActions } from 'vuex';
+
 computed: {
-	...mapState(['allMarker', 'allMarkerLabel', ])
+	...mapState("qyh",[
+		'allMarker'
+	]),
+	...mapGetters('qyh', [
+		'changeMarker'
+	])
 },
+
 methods: {
-	...mapMutations(['updateMarker', 'updateMarkerLabel']),
-}
+	...mapMutations("qyh", [
+		'addMarker'
+	]),
+	...mapActions('qyh', [
+		'addAction'
+	]),
+},
 	
  */
 export default new Vuex.Store({
-	state:{
-		allMarker: null,
-		allMarkerLabel:null
+	state: {
+
 	},
-	mutations:{
-		updateMarker(state,data){
-			state.allMarker=data;
-		},
-		updateMarkerLabel(state,data){
-			state.allMarkerLabel=data;
-		}
+	mutations: {
+
 	},
 	modules: {
 		qyh
-	}
+	},
+	plugins: [vuexLocal.plugin]
 })

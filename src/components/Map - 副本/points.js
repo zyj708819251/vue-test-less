@@ -24,73 +24,6 @@ var $zyjdialog = dialogMessage.installDialog();
 import utils from '@utils/utils.js'
 var $utils = utils
 
-/**
- * var dataArr = [
-				{
-					id: 1,
-					x: 113.54320651437152,
-					y: 22.847522301793774 
-				},
-				{
-					id: 2,
-					x: 113.199775736519584,
-					y: 23.204539429597769
-				},
-				{
-					id: 3,
-					x: 113.78894792486385,
-					y: 24.432137309426135
-				},
-				{
-					id: 4,
-					x: 114.8872330118499,
-					y: 23.242328465191182
-				},
-				{
-					id: 5,
-					x: 115.86613999560169,
-					y: 24.151295079688467
-				}
-			];
-			dataArr.forEach((v, i) => {
-				v.iconScale = 0.6;
-				v.iconImage = require('@views/Home/img/' + v.id + '.png');
-				v.groupId = 'qiye';
-				v.effectId = 'qiye' + i;
-			});
-			that.qyMarker = points.addMarker(dataArr);
-			points.addMarkerClick('singleclick', 'qiye', function(res) {
-				var newObj = {
-					params: res,
-					popupCom: home,
-					isMultipleLabel: true
-				};
-				that.qyMarkerLabel = points.addMarkerLabel(newObj);
-			});
-			points.addMarkerClick('dblclick', 'qiye', function(res) {
-				if(res.id==1){
-					that.$router.push({
-						path: '/Home',
-						query: {
-							time: new Date().getTime(),
-							id: res.effectId
-						}
-					});
-					window.map.removeLayer(mapconfig.maplayer);
-					window.map.addLayer(mapconfig.tdtlayer);
-					geoJson.hideOtherRegion(gd, mapconfig.tdtlayer);
-					var obj = {
-						center: [113.54720036247413,22.842639456712348],
-						zoom: 15.6,
-						duration: 3000
-					};
-					location.show(obj);
-					that.showAllPoints();
-				}
-			});
- */
-
-
 var flyLine = {
 	pointslayer: null,
 	clickKey: null,
@@ -98,6 +31,39 @@ var flyLine = {
 	obj: null,
 	clearPopup: [],
 	clearOverlay: [],
+	/**
+	 *
+	 var dataArr = [
+	   {
+	     id: 1,
+	     x: 113.201764941395098,
+	     y: 23.176441910731008
+	   },
+	   {
+	     id: 2,
+	     x: 113.199775736519584,
+	     y: 23.204539429597769
+	   }
+	 ];
+	 var obj = {
+	   data: dataArr,
+	   lngLatKey: ['x', 'y'],
+	   iconScale: 1,
+	   iconImage: require('@assets/img/避难场所@2x.png'),
+	   popupCom: bp,
+	   popupId: 'bp',
+	   list:{//聚合时传list
+	     popupCom: dataList,
+	     popupId: 'dataList',
+	     left:100,
+	     top:100
+	   },
+	   isCluster: true //是否聚合 true聚合、false不聚合
+	   isMultipleLabel:true//是否显示多个标牌 true为多个 false为单个
+	 };
+
+
+	 */
 	addMarker(data) {
 		let features = [];
 		this.obj = data;
