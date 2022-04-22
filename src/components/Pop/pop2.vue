@@ -50,7 +50,7 @@ export default {
 .pop {
 	width: 200px;
 	height: 200px;
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(255, 0, 0, 0.6);
 	color: #fff;
 }
 </style>
