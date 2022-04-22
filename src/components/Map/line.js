@@ -92,7 +92,7 @@ var line = {
 		});
 		let linelayer = new VectorLayer({
 			source: vectorSource,
-			zIndex: 9999
+			zIndex: 1
 		})
 
 

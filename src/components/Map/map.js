@@ -7,6 +7,7 @@ import {
 	defaults as defaultInteractions,
 } from 'ol/interaction';
 import points from '@com/Map/points.js';
+
 var map = {
 	map: null,
 	mapView: null,
@@ -40,7 +41,8 @@ var map = {
 		window.view = this.mapView;
 		window.clearLayer = this.clearLayer;
 		window.clearLabel = this.clearLabel;
-
+		
+		// F9 ctrl+c 获取当前地图中心点和缩放值
 		document.onkeydown = function(e) {
 			let e1 = e || event || window.event || arguments.callee.caller.arguments[0]
 			if (e1.keyCode == 120) {
@@ -57,6 +59,10 @@ var map = {
 				document.body.removeChild(textareaEl);
 			}
 		}
+		
+		
+		
+		
 		window.map.on('singleclick',function (evt) {
 			 addEvent(evt,'singleclickCallback')
 		})
@@ -64,10 +70,11 @@ var map = {
 			 addEvent(evt,'dblclickCallback')
 			 return false
 		})
-		
 		function addEvent(evt,type) {
+			
 			// var lnglat = window.map.getCoordinateFromPixel(evt.pixel);
-			// console.log(lnglat);
+			// console.log('==='+lnglat);
+			// console.log('---'+evt.coordinate);
 			var feature = window.map.forEachFeatureAtPixel(evt.pixel, function(feature) {
 				return feature;
 			});

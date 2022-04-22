@@ -109,7 +109,6 @@ var point = {
 			pointslayer = new VectorLayer({
 				source: clusterSource,
 				style: function(feature) {
-					console.log(feature);
 					var size = feature.get('features').length;
 					if (size == 1) {
 						return new Style({
@@ -145,7 +144,7 @@ var point = {
 						})
 					}
 				},
-				zIndex: 9999
+				zIndex: 10
 			});
 			moveendKey = window.map.on('moveend', function(evt) {
 				if (window.map.getView().getZoom() == window.map.getView().getMaxZoom()) {
@@ -157,7 +156,7 @@ var point = {
 		} else {
 			pointslayer = new VectorLayer({
 				source: vectorSource,
-				zIndex: 9999
+				zIndex: 10
 			});
 		}
 		window.map.addLayer(pointslayer);

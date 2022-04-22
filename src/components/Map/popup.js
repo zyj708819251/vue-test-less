@@ -23,6 +23,7 @@ var popup = {
 				autoPanAnimation: {
 					duration: 500
 				},
+				// offset: [0, -40]
 			});
 			window.map.addOverlay(popup);
 			window.clearLabel.push({
