@@ -6,6 +6,7 @@ var $zyjdialog = dialogMessage.installDialog();
 var popup = {
 	show(obj,e) {
 		let that = this;
+		$zyjdialog.closePop(obj.effectId);
 		$zyjdialog.openPop({
 			content: obj.popupCom,
 			id: obj.effectId,

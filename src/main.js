@@ -36,9 +36,13 @@ Vue.prototype.$echarts = Echarts
 import utils from '@utils/utils.js'
 Vue.prototype.$utils = utils
 
+
 //拖动
 import zyjdrag from '@utils/drag.js'
-
+import elDragDialog from '@utils/mydrag.js' // 引入移动事件（el-drag-dialog.js的内容为上面的代码块）
+Vue.directive('el-drag-dialog', elDragDialog);//添加标签事件绑定 可以放大移动弹窗
+//弹窗默认点击遮罩改为不关闭 为了防止和拖拽冲突 ，这句需要放在use ElementUI之前（也可以不加这句，自己测试区别）
+ElementUI.Dialog.props.closeOnClickModal.default = false;
 //bus
 import bus from '@utils/bus.js';
 Vue.prototype.$bus = bus;

@@ -1,17 +1,21 @@
 <template>
 	<div id="app">
+		<!-- <el-dialog title="弹窗" :visible.sync="dialogVisible"
+		 :close-on-click-modal=false
+		  v-el-drag-dialog
+		 width="75%"
+		 >
+		
+		 <div style="color: darkorange;font-size: 64px;">
+		   弹窗
+		 </div>
+		</el-dialog> -->
+		 <!-- //:close-on-click-modal=false 这个属性的作用是不让点击外面关闭弹窗 -->
+
+		
 		<Bread />
 		<router-view />
 		<div id="mapView"></div>
-		<el-image-viewer
-			v-if="showViewer"
-			:on-close="
-				() => {
-					showViewer = false;
-				}
-			"
-			:url-list="srcList"
-		/>
 	</div>
 </template>
 <script>
@@ -33,6 +37,7 @@ import point from '@com/Map/points.js';
 export default {
 	data() {
 		return {
+			dialogVisible:true,
 			showViewer: false,
 			srcList: [],
 			qyMarker: '',
@@ -45,21 +50,35 @@ export default {
 	created() {},
 	mounted() {
 		var that = this;
-		window.openPop = function(data) {
-			that.showPop(data);
-		};
+		// window.openPop = function(data) {
+		// 	that.showPop(data);
+		// };
 		map.show();
 
-		api.getListAPI().then(res => {
-			console.log(res);
-		});
-		api.sendHttp().then(res => {
-			console.log(res);
-			console.log(111);
-		});
-		this.showPoints();
+		// api.getListAPI().then(res => {
+		// 	console.log(res);
+		// });
+		// api.sendHttp().then(res => {
+		// 	console.log(res);
+		// 	console.log(111);
+		// });
+		// this.showPoints();
 		this.showAllPoints();
 		this.showLine();
+		// this.$zyjdialog.openPop({
+		//   content: hello,
+		//   id: 'hello',
+		//   right: 200,
+		//   top: 200,
+		//   options: {
+		//     closeCallback: this.close
+		//   },
+		//   isPostion: true,
+		//   dialogData: {
+		//     a: 111,
+		//     b: 222
+		//   }
+		// });
 	},
 	methods: {
 		showPop(url) {
