@@ -123,6 +123,14 @@ module.exports = {
 				pathRewrite: {
 					'^/search': '/search'
 				}
+			},
+			'/rq': {
+				target: 'http://192.168.0.120:83', // target host
+				ws: false, // proxy websockets
+				changeOrigin: true, // needed for virtual hosted sites
+				pathRewrite: {
+					'^/rq': '/rq'
+				}
 			}
 		}
 	}

@@ -1,16 +1,33 @@
 <template>
 	<div class="header">
 		<div class="nav">
-			<router-link class="nav-item" :key="item.path" v-for="(item, index) in navList" :to="item.path" custom v-slot="{ navigate, isActive }">
-				<div :active="isActive" @click="navigate" @keypress.enter="navigate" role="link"><p v-text="item.name"></p></div>
+			<router-link
+				class="nav-item"
+				:key="item.path"
+				@click.native="oneMuenSwitch(index)"
+				v-for="(item, index) in navList"
+				:to="item.path"
+				custom
+				v-slot="{ navigate, isActive }"
+			>
+				<div :active="isActive" @click="navigate" @keypress.enter="navigate" role="link">
+					<p class="text" v-text="item.name"></p>
+					<div class="twoMenu">
+						<router-link
+							class="nav-item nav-item-two"
+							:key="subItem.path"
+							v-for="(subItem, subIndex) in item.children"
+							:to="subItem.path"
+							custom
+							v-slot="{ navigate, isActive }"
+							v-show="index == oneMenuIndex"
+							@click.native="twoMuenSwitch(subIndex)"
+						>
+							
+						</router-link>
+					</div>
+				</div>
 			</router-link>
-
-			<!-- <router-link  class="nav-item" :key="index.path" v-for="(item, index) in navList" :to="item.path" >
-        <div>
-          <p v-text="item.name"></p>
-          <p v-text="item.englishName"></p>
-        </div>
-      </router-link> -->
 		</div>
 	</div>
 </template>
@@ -27,13 +44,36 @@ export default {
 				},
 				{
 					name: '关于我们',
-					path: '/About'
+					path: '/About',
+					children: [
+						{
+							name: '关于二级1',
+							path: '/About/About2-1',
+							children: [
+								{
+									name: '关于三级1',
+									path: '/About/About2-1/About2-1-1'
+								}
+							]
+						},
+						{
+							name: '关于二级2',
+							path: '/About/About2-2',
+							children: [
+								{
+									name: '关于三级2',
+									path: '/About/About2-2/About2-2-1'
+								}
+							]
+						}
+					]
 				}
 			],
-			month:'',
-			time:'',
-			week:''
-			
+			month: '',
+			time: '',
+			week: '',
+			oneMenuIndex: 0,
+			twoMenuIndex: 0
 		};
 	},
 	computed: {},
@@ -42,6 +82,14 @@ export default {
 		this.init();
 	},
 	methods: {
+		oneMuenSwitch(index) {
+			this.oneMenuIndex = index;
+			localStorage.setItem('oneMenuIndex',this.oneMenuIndex)
+		},
+		twoMuenSwitch(index) {
+			this.twoMenuIndex = index;
+			localStorage.setItem('twoMenuIndex',this.twoMenuIndex)
+		},
 		init() {
 			this.getDate();
 			let timer = setInterval(() => {
@@ -60,6 +108,12 @@ export default {
 			this.month = date.dateMonthYear;
 			this.week = date.week;
 		}
+	},
+	watch:{
+		 $route(to, from) {
+			this.oneMenuIndex=localStorage.getItem('oneMenuIndex')
+			this.twoMenuIndex=localStorage.getItem('twoMenuIndex')
+		 }
 	}
 };
 </script>
@@ -80,23 +134,37 @@ export default {
 		background: url(img/产品名@3x.png) no-repeat;
 		background-size: 100% 100%;
 	}
+	position: relative;
 	.nav {
 		height: 100%;
-		flex: 1;
+		// flex: 1;
 		.flex();
 		justify-content: center;
 		.nav-item {
 			cursor: pointer;
 			background-size: 100% 100%;
 			background-repeat: no-repeat;
-			font-size: 18px;
-			height: 100%;
-			padding: 24px 30px 24px;
-			text-align: center;
+			// font-size: 18px;
+			// height: 100%;
+			// padding: 24px 30px 24px;
+			// text-align: center;
 			&[active='true'] {
-				background: url(img/顶部标题选定@3x.png) no-repeat bottom center;
-				background-size: 128px 33px;
+				& > .text {
+					border-bottom: 1px solid #f00;
+				}
 			}
+		}
+		.twoMenu {
+			.flex();
+			position: absolute;
+			left: 0;
+			top: 30px;
+		}
+		.threeMenu {
+			.flex();
+			position: absolute;
+			left: 0;
+			top: 60px;
 		}
 	}
 	.rightMess {

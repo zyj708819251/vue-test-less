@@ -55,6 +55,13 @@ import '@utils/rem.js';
 import dialogMessage from '@com/Dialog/Dialog.js';
 Vue.prototype.$zyjdialog = dialogMessage.installDialog();
 
+//vl-layer
+import layer from 'vl-layer'
+import 'vl-layer/vl-layer.css';
+Vue.prototype.$layer = layer(Vue);
+
+
+
 var $vue = new Vue({
   router,
   store,

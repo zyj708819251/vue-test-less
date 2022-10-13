@@ -1,11 +1,6 @@
 <template>
 	<div>
-		{{ allMarker }}
-		<input type="text" v-model="value" />
-		<button @click="addSate(value)">+1</button>
-		<button @click="changeValue(value)">-1</button>
-		<input type="number" v-model="a" />
-		<el-image style="width: 100px; height: 100px" :src="url" :preview-src-list="srcList"></el-image>
+		
 	</div>
 </template>
 

@@ -10,9 +10,8 @@
 		   弹窗
 		 </div>
 		</el-dialog> -->
-		 <!-- //:close-on-click-modal=false 这个属性的作用是不让点击外面关闭弹窗 -->
+		<!-- //:close-on-click-modal=false 这个属性的作用是不让点击外面关闭弹窗 -->
 
-		
 		<Bread />
 		<router-view />
 		<div id="mapView"></div>
@@ -37,13 +36,17 @@ import point from '@com/Map/points.js';
 export default {
 	data() {
 		return {
-			dialogVisible:true,
+			dialogVisible: true,
 			showViewer: false,
 			srcList: [],
 			qyMarker: '',
 			qyMarkerLabel: '',
 			singleMarker: '',
-			singleMarkerLabel: ''
+			singleMarkerLabel: '',
+			iframeData: {
+				a: '大厦是多久啊还是觉得库哈斯记得哈圣诞节爱神的箭哈',
+				b: 2
+			}
 		};
 	},
 	computed: {},
@@ -53,18 +56,56 @@ export default {
 		// window.openPop = function(data) {
 		// 	that.showPop(data);
 		// };
-		map.show();
+		// map.show();
 
-		// api.getListAPI().then(res => {
+		// api.getRq().then(res => {
 		// 	console.log(res);
 		// });
 		// api.sendHttp().then(res => {
 		// 	console.log(res);
 		// 	console.log(111);
 		// });
+
+		// let layerId = this.$layer.iframe({
+		// 	title: '11111111111',
+		// 	content: {
+		// 		content: hello, //组件
+		// 		parent: this, //vue实例 传入实例 弹窗组件内才能获取laydata
+		// 		data: {
+		// 			dialogData: {
+		// 				a: 22222222
+		// 			}
+		// 		}
+		// 	},
+		// 	area: ['400px','300px'] ,
+		// 	resizeOptions: {
+		// 		icon: false, //是否显示右下角图标 默认显示 false隐藏
+		// 		dom: true, //是否开启右下角拉伸
+		// 		right: true, //是否开启右边界拉伸
+		// 		bottom: true //是否开启底部边界拉伸
+		// 	},
+		// 	maxmin: true, //开启最大化最小化
+		// 	resize: true, //是否允许拉伸
+		// 	shadeClose: false, //点击遮罩是否关闭
+		// 	shade: false, //是否显示遮罩
+		// 	canmove: true, //true可以拖动 false不能拖动
+		// 	//弹窗成功 id弹窗的id
+		// 	success: id => {
+		// 		console.log('success', id);
+		// 	},
+		// 	//弹窗关闭/取消
+		// 	end: () => {
+		// 		console.log('end');
+		// 	}
+		// });
+		
+		// setTimeout(()=>{
+		// 	this.$layer.close(layerId);
+		// },3000)
+
 		// this.showPoints();
-		this.showAllPoints();
-		this.showLine();
+		// this.showAllPoints();
+		// this.showLine();
 		// this.$zyjdialog.openPop({
 		//   content: hello,
 		//   id: 'hello',
@@ -104,14 +145,14 @@ export default {
 					name: 'no街道',
 					points: [
 						[113.53603380934584, 22.84313113672137],
-						[113.54371565596449,22.847229552096127],
-						[113.55319681997352,22.841491242407407],
-						[113.54958625525629,22.834576670354583],
-						[113.55415055404977,22.83355481241574],
-						[113.54154763947074,22.837778491896284],
-						[113.54474946101243,22.837335686789455],
-						[113.5488368927678,22.842410914552367],
-						[113.5559558364084,22.833725122072213]
+						[113.54371565596449, 22.847229552096127],
+						[113.55319681997352, 22.841491242407407],
+						[113.54958625525629, 22.834576670354583],
+						[113.55415055404977, 22.83355481241574],
+						[113.54154763947074, 22.837778491896284],
+						[113.54474946101243, 22.837335686789455],
+						[113.5488368927678, 22.842410914552367],
+						[113.5559558364084, 22.833725122072213]
 					]
 				},
 				{
@@ -144,16 +185,16 @@ export default {
 				v.effectId = 'line' + i;
 				v.popupCom = hello1;
 				v.singleclickCallback = function(e) {
-					popup.show(v,e);
+					popup.show(v, e);
 				};
 			});
 			line.show(dataArr);
-			var obj={
-			  center:[113.004949598496054, 22.804940993433068],
-			  zoom:4.5,
-			  duration:2000
-			}
-			location.show(obj)
+			var obj = {
+				center: [113.004949598496054, 22.804940993433068],
+				zoom: 4.5,
+				duration: 2000
+			};
+			location.show(obj);
 		},
 		showAllPoints() {
 			let that = this;
@@ -223,7 +264,7 @@ export default {
 				v.isCluster = true;
 				v.distance = 100;
 				v.singleclickCallback = function(e) {
-					popup.show(v,e);
+					popup.show(v, e);
 				};
 			});
 			point.show(dataArr);
@@ -265,7 +306,7 @@ export default {
 				v.popupCom = hello;
 				v.lnglat = [v.x, v.y];
 				v.singleclickCallback = function(e) {
-					popup.show(v,e);
+					popup.show(v, e);
 				};
 				v.dblclickCallback = function() {
 					alert(1);

@@ -11,5 +11,8 @@ export default {
   },
   getListAPI (params) {
     return http.get('./data/getList.json', params)
-  }
+  },
+	getRq (params) {
+	  return http.get('/rq/dictionary/selectByType?type=yxzy_lx', params)
+	}
 }

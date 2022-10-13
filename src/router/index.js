@@ -8,9 +8,6 @@ VueRouter.prototype.push = function push(location) {
 	return routerPush.call(this, location).catch(error => error)
 }
 const routes = [{
-		path: '/',
-		redirect: '/Layout'
-	}, {
 		path: '/Login',
 		name: "登录",
 		component: () => import('@views/Login/index.vue')
@@ -21,22 +18,63 @@ const routes = [{
 		component: () => import('@views/404/index.vue')
 	},
 	{
-		path: "/Layout",
+		path: "/",
 		component: () => import('@com/Layout/index.vue'),
-		name: "Home",
+		name: "Layout",
 		redirect: '/Home',
-		meta: { title: "首页"},
+		meta: {
+			title: "首页"
+		},
 		children: [{
-				path: "/Home",
-				name: "HomePage",
+				path: "Home",
+				name: "Home",
 				component: () => import('@views/Home/index.vue'),
-				meta: { title: "个人主页"}
+				meta: {
+					title: "个人主页"
+				}
 			},
 			{
-				path: "/About",
-				name: "AboutPage",
+				path: "About",
+				name: "About",
 				component: () => import('@views/About/index.vue'),
-				meta: { title: "关于我们"}
+				meta: {
+					title: "关于我们"
+				},
+				redirect:'/About/About2-1',
+				children: [{
+					path: "About2-1",
+					name: "About2-1",
+					component: () => import('@views/About/two-1.vue'),
+					meta: {
+						title: "关于二级1"
+					},
+					redirect:'/About/About2-1/About2-1-1',
+					children: [{
+						path: "About2-1-1",
+						name: "About2-1-1",
+						component: () => import('@views/About/three-1.vue'),
+						meta: {
+							title: "About2-1-1"
+						}
+					}]
+				},
+				{
+					path: "About2-2",
+					name: "About2-2",
+					component: () => import('@views/About/two-2.vue'),
+					meta: {
+						title: "关于二级2"
+					},
+					redirect:'/About/About2-2/About2-2-1',
+					children: [{
+						path: "About2-2-1",
+						name: "About2-2-1",
+						component: () => import('@views/About/three-2.vue'),
+						meta: {
+							title: "About2-2-1"
+						}
+					}]
+				}]
 			}
 		]
 	}
@@ -48,7 +86,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	console.log(to);
+	// console.log(to);
 	to.query.time = new Date().getTime();
 	next();
 })
